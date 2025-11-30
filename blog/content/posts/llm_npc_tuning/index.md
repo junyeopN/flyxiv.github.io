@@ -18,7 +18,7 @@ tags:
   - Persona fine tuning
 
 # nolastmod: true
-draft: false
+draft: true
 ---
 
 Making language models imitate a character is called `persona tuning`. I'm going to see if I can fine-tune an sLM to imitate a character I like and have a real-time conversation.
