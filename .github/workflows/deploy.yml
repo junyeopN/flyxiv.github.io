@@ -34,4 +34,4 @@ jobs:
           gcloud compute ssh ${USER_NAME}@${INSTANCE_NAME} \
             --zone=${ZONE} \
             --project=${PROJECT_ID} \
-            --command="cd ~/flyxiv.github.io/blog && git pull origin master && hugo && sudo systemctl restart nginx"
+            --command="sudo cd /mnt/data/flyxiv.github.io/blog && sudo git pull origin master && sudo hugo && sudo systemctl restart nginx"
