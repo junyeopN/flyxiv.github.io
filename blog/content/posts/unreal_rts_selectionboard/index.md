@@ -17,30 +17,12 @@ tags:
 draft: true
 ---
 
-```cpp
-// Fill out your copyright notice in the Description page of Project Settings.
+Good UI is Crucial for an RTS-Style game. I'm going to create a RTS-style unit selection board so that it is easy for the player to check each selected unit's status.
 
-#pragma once
+# Architecture
 
-#include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
-#include "UnitSelectionPanel.generated.h"
+![architecture](./architecture.png)
 
-/**
- *
- */
-UCLASS()
-class FORBIDDENTACTICS_API UUnitSelectionPanel : public UUserWidget
-{
-	GENERATED_BODY()
+We need to use nested Widget architecture for reusability.
 
-private:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI", meta = (AllowPrivateAccess = "true"))
-	float TotalComponentLength;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI", meta = (AllowPrivateAccess = "true"))
-	float BoxLength;
-
-	TArray<TObjectPtr<class ATacticsBaseUnit>> SelectedUnits;
-};
-```
+## 1. UnitSelectionInfo
