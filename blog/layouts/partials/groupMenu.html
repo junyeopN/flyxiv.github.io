@@ -1,0 +1,20 @@
+{{ $current := .RelPermalink }}
+<ul class="menu group-menu w-full">
+  <li class="menu-title">Categories</li>
+  <li>
+    <a href="{{ site.Home.RelPermalink }}" class="justify-between {{ if .IsHome }}menu-active{{ end }}">
+      All
+      <span class="text-xs">{{ len (where site.RegularPages "Type" "posts") }}</span>
+    </a>
+  </li>
+  {{ range site.Params.groupMenu }}
+  {{ with site.GetPage (printf "/category/%s" (urlize .)) }}
+  <li>
+    <a href="{{ .RelPermalink }}" class="justify-between {{ if eq .RelPermalink $current }}menu-active{{ end }}">
+      {{ .Title }}
+      <span class="text-xs">{{ len .Pages }}</span>
+    </a>
+  </li>
+  {{ end }}
+  {{ end }}
+</ul>

@@ -1,0 +1,11 @@
+/* Left category menu: the theme's compiled CSS has no responsive menu variant,
+   so lay the items out in a row below the md breakpoint. */
+@media (max-width: 767px) {
+  .group-menu {
+    flex-direction: row;
+  }
+
+  .group-menu .menu-title {
+    display: none;
+  }
+}

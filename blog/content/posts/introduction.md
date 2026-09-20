@@ -4,6 +4,7 @@ date: 2025-03-28T09:18:01Z
 lastmod: 2025-03-28T09:18:01Z
 author: Jun Yeop Na 
 avatar: /image/favicon.svg
+category: General Dev
 categories:
   - category1
 tags:

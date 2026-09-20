@@ -6,6 +6,7 @@ author: Jun Yeop(Johnny) Na
 avatar: /images/favicon.svg
 # authorlink: https://author.site
 cover: claude_code.png
+category: General Dev
 categories:
   - Claude Code
 tags:
