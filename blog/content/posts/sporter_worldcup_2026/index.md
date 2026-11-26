@@ -78,11 +78,9 @@ The first version reached **macro F1 0.856 and mAP 0.890** on a held-out set of 
 
 ## 2-3. Retraining With New Classes
 
-In March I retrained the model with 3 more classes we needed for clips: `CARD`, `CEREMONY`, and `FOUL/INJURY`. Macro F1 went down to **80.4%**, mostly because foul and injury scenes are hard to tell apart from normal play.
+In March I retrained the model with 3 more classes we needed for clips: `CARD`, `CEREMONY`, and `FOUL/INJURY`. Macro F1 went down, mostly because foul and injury scenes are hard to tell apart from normal play.
 
-![retrain](./action_retrain_f1.png)
-
-The weak classes were the important ones: `GOAL` 0.65, `SAVE` 0.67, `FOUL/INJURY` 0.69, `SHOT` 0.74. I also tried a separate model trained only on shot/save/goal, which didn't help, and with ~15,000 samples a bigger backbone wasn't an option either.
+The weak classes were the important ones: `GOAL`, `SAVE`, `FOUL/INJURY`, and `SHOT`. I also tried a separate model trained only on shot/save/goal, which didn't help, and with ~15,000 samples a bigger backbone wasn't an option either.
 
 To summarize, **the vision model was good at telling *when* something happened and what kind of broadcast scene it was, but it couldn't reliably tell a goal from a save.** For that we needed the text commentary.
 
@@ -92,7 +90,7 @@ When broadcasters switch into a replay, they play a short animated wipe. A clip 
 
 Every competition has its own wipe, so I collected wipe styles from several competitions and trained the model to detect them.
 
-In the action model, the `BROADCAST_TRANSITION` class that covers these wipes was the easiest class, at 0.99 F1.
+In the action model, the `BROADCAST_TRANSITION` class that covers these wipes was the easiest class.
 
 # 3. Reading the Live Text Commentary With an LLM
 

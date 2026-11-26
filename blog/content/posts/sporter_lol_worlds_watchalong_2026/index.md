@@ -26,7 +26,7 @@ After MSI and EWC ([SPORTER 2](../sporter_lol_msi_ewc_2026/)), our analysis show
 
 So from late July our team rebuilt SPORTER LoL around **impact**: publish only the moments that people react to, measured with data everyone can agree on (the live chat and the broadcast audio), and give them short hook titles. We also extended it to **watch-along** broadcasts for LoL Worlds 2026, which started on October 16.
 
-My part was measuring impact from the chat and the audio, the reaction engines, the title model (Titlemaker) and the STT correction in front of it, the esports data integration, a load balancer for our inference engines, and an alerting system built from our operation incidents.
+My part was measuring impact from the chat and the audio, the reaction engines, the title generation model and the STT correction in front of it, the esports data integration, a load balancer for our inference engines, and an alerting system built from our operation incidents.
 
 # 0. What Is a Watch-Along?
 
@@ -54,7 +54,7 @@ Clip generation now runs once a set ends instead of continuously: the moments wi
 
 For Worlds, the models that used to call a commercial API were replaced by in-house **LLMs fine-tuned with LoRA** by my teammates, and the commercial model is still kept as a fallback.
 
-# 3. Titlemaker: 2-3 Word Hook Titles
+# 3. Title Generation Model: 2-3 Word Hook Titles
 
 The main viewers of LoL clips are in their 20s and 30s, and they prefer short titles that make you curious. When we looked at LCK YouTube shorts, short hook titles clearly did better than long descriptive ones.
 
@@ -65,7 +65,7 @@ The main viewers of LoL clips are in their 20s and 30s, and they prefer short ti
 - **Model**: a large open-weight LLM fine-tuned with LoRA. The task was too hard for the smaller models we used elsewhere. It didn't fit on one GPU for training at first, so I used DeepSpeed ZeRO-3 and installed Flash Linear Attention for the model's linear attention layers, which cut one step's memory from 16.47GB to 5.18GB.
 - After a few epochs it wrote LoL-style titles of 2-3 words well. To get more data I let the model suggest more titles per clip and set up an accept/reject/edit review of its suggestions.
 
-Compared with a prompt-tuned commercial model the titles were about as good, and **with similar quality, the in-house model is the one we can keep training**, so we went with Titlemaker.
+Compared with a prompt-tuned commercial model the titles were about as good, and **with similar quality, the in-house model is the one we can keep training**, so we went with our title generation model.
 
 ## 3-2. Rules Around the Model
 
@@ -79,7 +79,7 @@ So I added an **STT fixer LoRA** on the same base model, trained on auto-labeled
 
 ## 4-1. Several LoRAs on One GPU
 
-The moment check, the STT fixer and Titlemaker all share one base model, and the adapter is picked per request. **This took 3 GPUs down to 1.**
+The moment check, the STT fixer and the title generation model all share one base model, and the adapter is picked per request. **This took 3 GPUs down to 1.**
 
 # 5. Keeping the Engines Busy
 
